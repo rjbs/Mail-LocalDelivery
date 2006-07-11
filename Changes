@@ -1,0 +1,15 @@
+Revision history for Mail-LocalDelivery
+
+0.21  Sat Apr 03 11:44:00 2005
+	- moved some things around
+	- added pod.t and pod-coverage to the tests directory
+
+0.20  Mon Oct 25 16:21:00 2004
+	- new maintainer
+	- minor changes to the documentation
+	- added META.yml
+
+0.10  Wed Jun  5 13:32:45 2002
+	- original version; created by h2xs 1.21 with options
+		-XA -n Mail::LocalDelivery
+
