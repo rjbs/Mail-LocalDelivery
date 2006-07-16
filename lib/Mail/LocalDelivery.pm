@@ -51,6 +51,9 @@ Mail::LocalDelivery - Deliver mail to a local mailbox
 
 =head1 DESCRIPTION
 
+This module has been superseded by L<Email::LocalDelivery>, which provides
+nearly all of the same features, and more, and better.  Use it instead.
+
 =cut
 
 sub _debug {
@@ -547,13 +550,11 @@ __END__
 
 =head1 CAVEATS
 
-If your mailbox file in /var/spool/mail/ doesn't already
-exist, you may need to use your standard system MDA to
-create it.  After it's been created, Mail::LocalDelivery should be
-able to append to it.  Mail::LocalDelivery may not be able to create
-/var/spool/mail because programs run from .forward don't
-inherit the special permissions needed to create files in
-that directory.
+If your mailbox file in /var/spool/mail/ doesn't already exist, you may need to
+use your standard system MDA to create it.  After it's been created,
+Mail::LocalDelivery should be able to append to it.  Mail::LocalDelivery may
+not be able to create /var/spool/mail because programs run from .forward don't
+inherit the special permissions needed to create files in that directory.
 
 =head1 SEE ALSO
 
@@ -561,16 +562,14 @@ L<Mail::Internet>, L<Mail::SMTP>, L<Mail::Audit>
 
 =head1 AUTHORS
 
-Maintained by Jose Castro, C<cog@cpan.org>.
 
-This module is essentially C<Mail::Audit>'s brains, which we
-scooped out into a separate module since local delivery is a useful
-thing, and it makes C<Mail::Audit> maintainable again.
+This code was originally written by Simon Cozens, extended by Meng Weng Wong,
+maintained by Jose Castro, then passed along for maintenance to the Perl Email
+Project.
 
-So the authors of this are really the authors of C<Mail::Audit>:
-Simon Cozens <simon@cpan.org> and Meng Weng Wong <mengwong@pobox.com>.
+Its current maintainer is Ricardo Signes, sponsored by Listbox.com.
 
 =head1 LICENSE
 
-The usual. This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+The usual: this program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
