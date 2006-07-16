@@ -1,5 +1,5 @@
 Changes
-LocalDelivery.pm
+lib/Mail/LocalDelivery.pm
 Makefile.PL
 MANIFEST
 README
