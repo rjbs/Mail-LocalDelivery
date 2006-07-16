@@ -1,5 +1,9 @@
 Revision history for Mail-LocalDelivery
 
+0.21  Sun Jul 16 15:02:00 2006
+  - clean up code just a bit
+  - avoid calling methods what don't exist
+
 0.21  Sat Apr 03 11:44:00 2005
 	- moved some things around
 	- added pod.t and pod-coverage to the tests directory
