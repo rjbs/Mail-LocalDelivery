@@ -1,5 +1,16 @@
 Revision history for Mail-LocalDelivery
 
+0.30_01
+  - a localdelivery is no longer a kind of Mail::Internet
+  - added some very, very simple tests from Mail::Audit (finding bugs!)
+  - use Email::Abstract to support more mail object types
+  - standardize location of object guts
+  - make debug behavior overrideable per object
+  - make some internal routines into methods
+  - don't include significant portions of sysexits.h
+  - don't reimplement our own File::Path::mkpath
+  - various bits of code cleanup
+
 0.21  Sun Jul 16 15:02:00 2006
   - clean up code just a bit
   - avoid calling methods what don't exist
