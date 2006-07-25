@@ -4,6 +4,7 @@ Makefile.PL
 MANIFEST
 README
 t/01-basic.t
+t/deliver.t
 t/pod.t
 t/pod-coverage.t
 META.yml                                 Module meta-data (added by MakeMaker)
