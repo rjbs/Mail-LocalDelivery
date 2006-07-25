@@ -5,7 +5,7 @@ use warnings;
 use File::Spec ();
 use File::Temp ();
 
-use Test::More tests => 7;
+use Test::More tests => 9;
 
 BEGIN { use_ok('Mail::LocalDelivery'); }
 
@@ -23,6 +23,8 @@ my $message = readfile('t/messages/simple.msg');
 my $maildir   = File::Temp::tempdir(CLEANUP => 1);
 my $faildir   = File::Temp::tempdir(CLEANUP => 1);
 my $emergency = File::Temp::tempdir(CLEANUP => 1);
+
+my $mbox      = File::Spec->catfile(File::Temp::tempdir(CLEANUP => 1), 'mbox');
 
 chmod 0000 => $faildir;
 $ENV{MAIL} =  $faildir;
@@ -64,4 +66,16 @@ $deliver->deliver;
 ok(
   (  -d File::Spec->catdir($emergency, 'new')),
   "after accept without dest, emergency is maildir"
+);
+
+ok(
+  (! -e $mbox),
+  "mbox doesn't exist before we deliver to it",
+);
+
+$deliver->deliver($mbox);
+
+ok(
+  (-e $mbox),
+  "and once we deliver to it, mbox exists",
 );
