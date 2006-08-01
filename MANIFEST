@@ -1,0 +1,11 @@
+Changes
+lib/Mail/LocalDelivery.pm
+Makefile.PL
+MANIFEST
+README
+t/01-basic.t
+t/deliver.t
+t/pod.t
+t/pod-coverage.t
+t/messages/simple.msg
+META.yml                                 Module meta-data (added by MakeMaker)
