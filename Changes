@@ -1,6 +1,6 @@
 Revision history for Mail-LocalDelivery
 
-0.30_01
+0.301 2006-08-01
   - a localdelivery is no longer a kind of Mail::Internet
   - added some very, very simple tests from Mail::Audit (finding bugs!)
   - use Email::Abstract to support more mail object types

@@ -17,7 +17,7 @@ use constant DEFERRED  => 75;
 use constant REJECTED  => 100;
 use constant DELIVERED => 0;
 
-$VERSION = '0.30_01';
+$VERSION = '0.301';
 
 =head1 NAME
 
