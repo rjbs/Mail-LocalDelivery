@@ -1,12 +1,12 @@
+use strict;
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
 WriteMakefile(
-    'NAME'		=> 'Mail::LocalDelivery',
-    'VERSION_FROM'	=> 'lib/Mail/LocalDelivery.pm', # finds $VERSION
-    'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
-       # retrieve abstract from module
-      (ABSTRACT_FROM => 'lib/Mail/LocalDelivery.pm',
-       AUTHOR     => 'Jose Alves de Castro <cog@cpan.org>') : ()),
+  'NAME'		=> 'Mail::LocalDelivery',
+  'VERSION_FROM'	=> 'lib/Mail/LocalDelivery.pm',
+  (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl'), : ()),
+  'PREREQ_PM'		=> {}
+  ($] >= 5.005 ?
+    (ABSTRACT_FROM => 'lib/Mail/LocalDelivery.pm',
+     AUTHOR     => 'Jose Alves de Castro <cog@cpan.org>') : ()),
 );
