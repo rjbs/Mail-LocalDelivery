@@ -17,7 +17,7 @@ use constant DEFERRED  => 75;
 use constant REJECTED  => 100;
 use constant DELIVERED => 0;
 
-$VERSION = '0.302';
+$VERSION = '0.303';
 
 =head1 NAME
 
@@ -25,7 +25,7 @@ Mail::LocalDelivery - Deliver mail to a local mailbox
 
 =head1 VERSION
 
-version 0.302
+version 0.303
 
  $Id$
 
