@@ -1,5 +1,8 @@
 Revision history for Mail-LocalDelivery
 
+0.304     2007-07-14
+          import bugfix from Mail-Audit to allow tests to pass as root
+
 0.303     2007-02-26
           fix prereqs
 

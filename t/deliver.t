@@ -21,12 +21,13 @@ sub readfile {
 my $message = readfile('t/messages/simple.msg');
 
 my $maildir   = File::Temp::tempdir(CLEANUP => 1);
-my $faildir   = File::Temp::tempdir(CLEANUP => 1);
 my $emergency = File::Temp::tempdir(CLEANUP => 1);
+
+my (undef, $failfile) = File::Temp::tempfile(UNLINK => 1);
+my $faildir = File::Spec->catdir($failfile, 'Maildir');
 
 my $mbox      = File::Spec->catfile(File::Temp::tempdir(CLEANUP => 1), 'mbox');
 
-chmod 0000 => $faildir;
 $ENV{MAIL} =  $faildir;
 
 my $logdir    = File::Temp::tempdir(CLEANUP => 1);
