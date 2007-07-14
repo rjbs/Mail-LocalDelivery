@@ -1,0 +1,135 @@
+LocalDelivery.pm version 0.21
+=============================
+
+=head1 NAME
+
+Mail::LocalDelivery - Deliver mail to a local mailbox
+
+=head1 SYNOPSIS
+
+    use Mail::LocalDelivery;
+    my $x = new Mail::LocalDelivery(\@some_text);
+    $x->deliver(); # Append to /var/spool/mail/you
+    $x->deliver("/home/simon/mail/test") # Deliver to Unix mailbox
+    $x->deliver("/home/simon/mail/test/") # Deliver to maildir
+
+=head1 DESCRIPTION
+
+=head1 METHODS
+
+=head2 C<new($data, %options)>
+
+This creates a new object for delivery. The data can be in the form of
+an array of lines, a C<Mail::Internet> object, a C<MIME::Entity> object
+or a filehandle. 
+
+As for options, if you don't want the "new/cur/tmp" structure of a classical
+maildir, set the one_for_all option, and you'll still get
+the unique filenames.
+
+  new ($data, one_for_all=>1);
+
+If you want "%" signs in delivery addresses to be expanded according to
+strftime(3), you can turn on the C<interpolate_strftime> option: 
+
+  new ($data, interpolate_strftime =>1);
+
+"interpolate_strftime" is not enabled by default for two
+reasons: backward compatibility (though nobody I know has a
+% in any mail folder name) and username interpolation: many
+people like to save messages by their correspondent's
+username, and that username may contain a % sign.  If you
+are one of these people, you should
+
+  $username =~ s/%/%%/g;
+
+You can also supply an "emergency" option to determine where mail
+goes in the worst case scenario.
+
+=head2 C<deliver($where, ...)>
+
+You can choose to deliver the mail into a mailbox by calling
+the C<deliver> method; with no argument, this will look in:
+
+=over 3
+
+=item 1
+
+C<$ENV{MAIL}>
+
+=item 2 
+
+F</var/spool/mail/you>
+
+=item 3
+
+F</var/mail/you>
+
+=item 4
+
+F<~/Maildir/>
+
+=back
+
+Unix mailboxes are opened append-write, then locked F<LOCK_EX>, the mail
+written and then the mailbox unlocked and closed.  If
+Mail::LocalDelivery sees that you have a maildir style system, where the
+argument is a directory, it'll deliver in maildir style. If the path you
+specify does not exist, Mail::LocalDelivery will assume mbox, unless it
+ends in /, which means maildir.
+
+If multiple maildirs are given, Mail::LocalDelivery will use hardlinks
+to deliver to them, so that multiple hardlinks point to the same
+underlying file.  (If the maildirs turn out to be on multiple
+filesystems, you get multiple files.)
+
+If your arguments contain "/", C<deliver> will create
+arbitarily deep subdirectories accordingly.  Untaint your
+input by saying
+
+  $username =~ s,/,-,g;
+
+C<deliver> will return the filename(s) that it saved to.
+
+  my  @pathnames = deliver({noexit=>1}, file1, file2, ... );
+  my ($pathname) = deliver({noexit=>1}, file1);
+
+If for any reason C<deliver> is unable to write the message
+(eg. you're over quota), Mail::LocalDelivery will attempt delivery
+to the C<emergency> mailbox.  If C<deliver> was called with
+multiple destinations, the C<emergency> action will only be
+taken if the message couldn't be delivered to any of the
+desired destinations.  By default the C<emergency> mailbox
+is set to the system mailbox.  If we were unable to save to
+the emergency mailbox, C<Mail::LocalDelivery> will return an
+empty list.
+
+=head1 CAVEATS
+
+If your mailbox file in /var/spool/mail/ doesn't already
+exist, you may need to use your standard system MDA to
+create it.  After it's been created, Mail::LocalDelivery should be
+able to append to it.  Mail::LocalDelivery may not be able to create
+/var/spool/mail because programs run from .forward don't
+inherit the special permissions needed to create files in
+that directory.
+
+=head1 SEE ALSO
+
+L<Mail::Internet>, L<Mail::SMTP>, L<Mail::Audit>
+
+=head1 AUTHORS
+
+Maintained by Jose Castro, C<cog@cpan.org>.
+
+This module is essentially C<Mail::Audit>'s brains, which we
+scooped out into a separate module since local delivery is a useful
+thing, and it makes C<Mail::Audit> maintainable again.
+
+So the authors of this are really the authors of C<Mail::Audit>:
+Simon Cozens <simon@cpan.org> and Meng Weng Wong <mengwong@pobox.com>.
+
+=head1 LICENSE
+
+The usual. This program is free software; you can redistribute it
+and/or modify it under the same terms as Perl itself.
