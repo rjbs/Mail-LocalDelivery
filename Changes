@@ -1,5 +1,10 @@
 Revision history for Mail-LocalDelivery
 
+{{$NEXT}}
+
+0.305     2013-09-28 21:31:26 America/New_York
+          update bugtracker and repo, fix some stupid non-strict errors
+
 0.304     2007-07-14
           import bugfix from Mail-Audit to allow tests to pass as root
 
