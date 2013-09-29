@@ -1,6 +1,6 @@
 use strict;
-
 package Mail::LocalDelivery;
+# ABSTRACT: Deliver mail to a local mailbox
 
 use Carp;
 use Email::Abstract;
@@ -8,26 +8,13 @@ use File::Basename;
 use Fcntl ':flock';
 use Mail::Internet;
 use Sys::Hostname; (my $HOSTNAME = hostname) =~ s/\..*//;
-use vars qw($VERSION @ISA @EXPORT @EXPORT_OK $ASSUME_MSGPREFIX);
 
-my $debuglevel    = 0;
-$ASSUME_MSGPREFIX = 0;
+my $debuglevel        = 0;
+our $ASSUME_MSGPREFIX = 0;
 
 use constant DEFERRED  => 75;
 use constant REJECTED  => 100;
 use constant DELIVERED => 0;
-
-$VERSION = '0.304';
-
-=head1 NAME
-
-Mail::LocalDelivery - Deliver mail to a local mailbox
-
-=head1 VERSION
-
-version 0.304
-
- $Id$
 
 =head1 SYNOPSIS
 
@@ -184,7 +171,7 @@ sub _nifty_interpolate {
 
   if ($self->{interpolate_strftime} and grep { /%/ } @out) {
     require POSIX;
-    import POSIX qw(strftime);
+    POSIX->import(qw(strftime));
     @out = map { strftime($_, @localtime) } @out;
   }
 
@@ -611,11 +598,6 @@ sub _mkdir_p {
 1;
 __END__
 
-=head1 LICENSE
-
-The usual: this program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
 =head1 CAVEATS
 
 If your mailbox file in /var/spool/mail/ doesn't already exist, you may need to
@@ -628,14 +610,7 @@ inherit the special permissions needed to create files in that directory.
 
 L<Mail::Internet>, L<Mail::SMTP>, L<Mail::Audit>
 
-=head1 PERL EMAIL PROJECT
-
-This module is maintained by the Perl Email Project, and is considered
-superseded by L<Email::LocalDelivery>.
-
-L<http://emailproject.perl.org/wiki/Mail::LocalDelivery>
-
-=head1 AUTHORS
+=head1 HISTORY
 
 This code was originally written by Simon Cozens, extended by Meng Weng Wong,
 maintained by Jose Castro, then passed along for maintenance to the Perl Email
